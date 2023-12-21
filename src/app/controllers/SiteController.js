@@ -1,18 +1,14 @@
-import course from "../models/course.js";
+import myCourse from "../models/course.js";
 class SiteController {
   // [GET] /
-  home(req, res) {
-    course.find(
-      {}
-      //     , function (err, courses) {
-      //   if (!err) {
-      //     res.json(courses);
-      //   } else {
-      //     res.status(400).json({ error: "ERROR!!!" });
-      //   }
-      // }
-    );
-    // res.render('home');
+  async home(req, res) {
+    try {
+      const allCourse = await myCourse.find().lean();
+      res.json(allCourse);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
   }
   //[GET] /seach
   search(req, res) {

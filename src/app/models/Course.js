@@ -7,4 +7,5 @@ const Course = new Schema({
   image: { type: String, maxLength: 225 },
 });
 
-export default mongoose.model("Course", Course);
+const myCourse = mongoose.model("Course", Course);
+export default myCourse;
