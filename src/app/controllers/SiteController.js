@@ -1,14 +1,25 @@
-import myCourse from "../models/course.js";
+import { myCourse } from "../models/Course.js";
+// import { multipleMongooseToObject } from "../../ulti/mongoose.js";
+import mongoose from "../../ulti/mongoose.js";
 class SiteController {
   // [GET] /
-  async home(req, res) {
-    try {
-      const allCourse = await myCourse.find().lean();
-      res.json(allCourse);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal Server Error");
-    }
+  home(req, res, next) {
+    myCourse
+      .find()
+      // .lean()
+      .then((courses) => {
+        // let coursess = courses.map((course) => {
+        //   return course.toObject();
+        // });
+        res.render("home", {
+          myCourse: mongoose.multipleMongooseToObject(courses),
+        });
+      })
+      .catch((error) => {
+        console.log("loi roi ba", error);
+
+        return next(error);
+      });
   }
   //[GET] /seach
   search(req, res) {

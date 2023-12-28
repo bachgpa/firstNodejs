@@ -1,0 +1,35 @@
+<div class="container mt-4 mb-4">
+  <div class="row">
+    <h2>Đăng khóa học</h2>
+    <form method="post" action="/courses/store" class="grid ml-4">
+      <div class="mb-3">
+        <label for="name" class="form-label">Course name</label>
+        <input type="text" class="form-control" id="courseName" name="name" />
+      </div>
+      {{! <div class="mb-3">
+        <label for="courseSlug" class="form-label">Course slug</label>
+        <input type="text" class="form-control" id="courseSlug" name="slug" />
+      </div> }}
+      <div class="mb-3">
+        <label for="courseDescription" class="form-label">Course description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="courseDescription"
+          name="description"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="courseLink" class="form-label">Video link</label>
+        <input
+          type="text"
+          class="form-control"
+          id="courseLink"
+          name="videoId"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Thêm khóa học</button>
+    </form>
+  </div>
+</div>
