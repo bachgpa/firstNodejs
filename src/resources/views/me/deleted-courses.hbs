@@ -1,0 +1,110 @@
+<div class="mt-4 container">
+  <a href="/me/stored-courses" class="title"><h3> Khóa học của tôi</h3></a>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Khóa học đã xóa</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Thời gian xóa</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each myCourse}}
+        <tr>
+          <th scope="row">{{sum @index 1}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.description}}</td>
+          <td>{{this.createdAt}}</td>
+          <td>
+            <a
+              href="#"
+              class="btn btn-link"
+              data-id="{{this._id}}"
+              data-name="{{this.name}}"
+              onclick="recoverActive(event)"
+            >Khôi phục</a>
+          </td>
+          <td>
+            <a
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#noti-course-modal"
+              class="btn btn-link"
+              data-id="{{this._id}}"
+              data-name="{{this.name}}"
+              onclick="deleteActive(event)"
+            >Xóa vĩnh viễn</a>
+          </td>
+        </tr>
+      {{else}}
+        <tr>
+          <td class="text-center" colspan="5">Thùng rác trống
+            <a href="/courses/create">Đăng khóa học</a></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div
+  class="modal fade"
+  id="noti-course-modal"
+  tabindex="-1"
+  aria-labelledby="delete-course-modal-Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="delete-course-modal-Label">Xóa khóa học</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Hành động này không thể khôi phục! Bạn chắc chắn muốn xóa khóa học này?
+      </div>
+      <div class="modal-footer">
+        <button
+          id="btn-delete-course"
+          type="button"
+          class="btn btn-danger"
+        >Xóa</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! delete hidden form }}
+<form name="delete-course-form" id="delete-course-form" method="post"></form>
+<form name="recover-course-form" id="recover-course-form" method="post"></form>
+
+<script>
+
+  var idSelected; var deleteForm = document.forms["delete-course-form"];
+  function deleteActive(event) { const deleteBtn = event.target; idSelected =
+  deleteBtn.getAttribute("data-id"); const nameDelete =
+  deleteBtn.getAttribute("data-name"); console.log(idSelected); const notiForm =
+  document.getElementById("noti-course-modal"); console.log(notiForm); const
+  formDesc = notiForm.querySelector(".modal-body"); formDesc.innerHTML = `Hành
+  động này không thể khôi phục! Bạn chắc chắn muốn xóa khóa học ${nameDelete}?`;
+  } var deleteConfirmBtn = document.querySelector("#btn-delete-course");
+  deleteConfirmBtn.onclick = function () { deleteForm.action =
+  "/courses/delete/" + idSelected + "?_method=DELETE"; deleteForm.submit(); };
+  var recoverForm = document.forms["recover-course-form"]; function
+  recoverActive(event) { const restoreBtn = event.target; idSelected =
+  restoreBtn.getAttribute("data-id"); console.log(idSelected);
+  recoverForm.action = "/courses/restore/" + idSelected + "?_method=PATCH";
+  recoverForm.submit(); }
+
+</script>

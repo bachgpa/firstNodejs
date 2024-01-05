@@ -1,0 +1,59 @@
+<div class="container mt-4 mb-4">
+  <div class="row">
+    <h2>Cập nhật khóa học</h2>
+    <form
+      method="post"
+      action="/courses/{{myCourse._id}}?_method=PUT"
+      class="grid ml-4"
+    >
+      <div class="mb-3">
+        <div class="mb-3" style="color: rgb(149, 147, 147);">
+          <div class="form-label">Course id</div>
+          <div
+            class="form-control"
+            style="user-select: none;color: rgb(149, 147, 147);"
+          >{{myCourse._id}}</div>
+        </div>
+        <label for="name" class="form-label">Course name</label>
+        <input
+          type="text"
+          class="form-control"
+          value="{{myCourse.name}}"
+          id="courseName"
+          name="name"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="courseDescription" class="form-label">Course description</label>
+        <textarea
+          class="form-control"
+          id="courseDescription"
+          name="description"
+        >{{myCourse.description}}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="courseLink" class="form-label">Video link</label>
+        <input
+          type="text"
+          class="form-control"
+          value="{{myCourse.videoId}}"
+          id="courseLink"
+          name="videoId"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="slug" class="form-label">Slug</label>
+        <input
+          type="text"
+          class="form-control"
+          value="{{myCourse.slug}}"
+          id="slug"
+          name="slug"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+    </form>
+  </div>
+</div>

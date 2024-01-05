@@ -5,10 +5,11 @@ async function db() {
     await mongoose.connect("mongodb://localhost:27017/f8_education_learn", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      // useCreateIndex: true,
     });
-    console.log("Connect successfully!!!!!");
+    console.log("Connect to database successfully!!!!!");
   } catch (error) {
-    console.log("Connect failed!!!!!");
+    console.log("Connect to database failed!!!!!");
   }
 }
 export default { db };

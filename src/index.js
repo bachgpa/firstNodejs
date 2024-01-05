@@ -1,10 +1,9 @@
+import methodOverride from "method-override";
 import path from "path";
-
 import morgan from "morgan";
 import express, { urlencoded } from "express";
 import { engine } from "express-handlebars";
 import route from "./routes/index.js";
-// import mongoose from "mongoose";
 import db from "./config/db/index.js";
 
 //connect to database
@@ -17,15 +16,19 @@ const port = 1000;
 // Xử lý đường dẫn để loại bỏ cả "file:/" và các ký tự / hoặc \ ở đầu
 const currentDirectory = path.dirname(import.meta.url);
 const cleanedPath = currentDirectory.replace(/^file:[/\\]+/, "");
-//static files
+//static filess
 
 app.use(express.static(path.join(cleanedPath, "public")));
 
 app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodOverride("_method"));
 
-app.engine("hbs", engine({ extname: ".hbs" }));
+app.engine(
+  "hbs",
+  engine({ extname: ".hbs", helpers: { sum: (a, b) => a + b } })
+);
 app.set("view engine", "hbs");
 
 // Kết hợp với "resources/views"

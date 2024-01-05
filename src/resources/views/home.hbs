@@ -3,12 +3,12 @@
     <div class="row">
       {{#each myCourse}}
         <div class="col-sm-6 col-lg-4">
-          <div class="card" style="width: 100%;">
-            <a href="/courses/{{this.slug}}">
+          <div class="card mt-4" style="width: 100%;">
+            <a class="linkA" href="/courses/{{this.slug}}">
               <img src="{{this.image}}" class="card-img-top" alt="..." />
             </a>
             <div class="card-body">
-              <a href="/courses/{{this.slug}}">
+              <a class="linkA" href="/courses/{{this.slug}}">
                 <h5 class="card-title">{{this.name}}</h5>
               </a>
               <p class="card-text">{{this.description}}</p>
