@@ -5,12 +5,8 @@ class SiteController {
   // [GET] /
   home(req, res, next) {
     myCourse
-      .find()
-      // .lean()
+      .find({ softDeleted: false })
       .then((courses) => {
-        // let coursess = courses.map((course) => {
-        //   return course.toObject();
-        // });
         res.render("home", {
           myCourse: mongoose.multipleMongooseToObject(courses),
         });
